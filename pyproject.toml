@@ -1,0 +1,27 @@
+[project]
+name = "etl-pdf-extractor"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Lucas Almeida Bezerra",email = "lucasalmeida_097@outlook.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "opencv-python (>=4.11.0.86,<5.0.0.0)",
+    "camelot-py (>=1.0.0,<2.0.0)",
+    "matplotlib (>=3.10.1,<4.0.0)",
+    "ghostscript (>=0.7,<0.8)",
+    "pandas (>=2.2.3,<3.0.0)",
+    "psycopg2-binary (>=2.9.10,<3.0.0)",
+    "sqlalchemy (>=2.0.40,<3.0.0)",
+    "unicode (>=2.9,<3.0)"
+]
+
+[tool.poetry]
+packages = [{include = "etl_pdf_extractor", from = "src"}]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
