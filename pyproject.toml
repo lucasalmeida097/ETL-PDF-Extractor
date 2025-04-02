@@ -19,8 +19,11 @@ dependencies = [
 ]
 
 [tool.poetry]
-packages = [{include = "etl_pdf_extractor", from = "src"}]
+packages = [{include = "src"}]
 
+
+[tool.poetry.group.dev.dependencies]
+ipykernel = "^6.29.5"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
