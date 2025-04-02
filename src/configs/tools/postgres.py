@@ -1,7 +1,9 @@
 import os
 import psycopg2
+import logging
 from sqlalchemy import create_engine
 
+logging.basicConfig(level=logging.INFO)
 
 class RDSPostgreSQLManager:
     def __init__(
@@ -33,10 +35,10 @@ class RDSPostgreSQLManager:
                 host=self.db_host,
                 port=self.db_port,
             )
-            print("Successful connection to PostgreSQL database.")
+            logging.info("Successful connection to PostgreSQL database.")
             return connection
         except psycopg2.Error as e:
-            print(f"Error connecting to PostgreSQL database: {e}")
+            logging.error(f"Error connecting to PostgreSQL database: {e}")
             return None
 
     def execute_query(self, query):
@@ -51,10 +53,10 @@ class RDSPostgreSQLManager:
                 connection.close()
                 return result
             else:
-                print("Unable to establish connection to the database.")
+                logging.warning("Unable to establish connection to the database.")
                 return None
         except psycopg2.Error as e:
-            print(f"Error executing SQL query: {e}")
+            logging.error(f"Error executing SQL query: {e}")
             return None
 
     def execute_insert(self, query, values):
@@ -66,11 +68,11 @@ class RDSPostgreSQLManager:
                 connection.commit()
                 cursor.close()
                 connection.close()
-                print("Insertion successful.")
+                logging.info("Data successfully inserted into the database.")
             else:
-                print("Unable to establish connection to the database.")
+                logging.warning("Unable to establish connection to the database.")
         except psycopg2.Error as e:
-            print(f"Error executing SQL insert: {e}")
+            logging.error(f"Error executing SQL insert: {e}")
 
     @staticmethod
     def check_environment_variables():
@@ -80,10 +82,10 @@ class RDSPostgreSQLManager:
             or not os.getenv("DB_PASSWORD")
             or not os.getenv("DB_HOST")
         ):
-            print("The database environment variables are not configured.")
+            logging.warning("The database environment variables are not configured.")
             return False
         else:
-            print("Environment variables for the Bank have been configured \
+            logging.info("Environment variables for the Bank have been configured \
                   correctly.")
             return True
 
