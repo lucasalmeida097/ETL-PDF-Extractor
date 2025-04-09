@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: investments
+    schema: public
+    description: "Brokerage note data extracted by the pipeline."
+    tables:
+      - name: invoices_jornada
+      - name: invoices_jornada_small
+      - name: invoices_redrex
+      - name: invoices_redrex_small
+
+
+
+
