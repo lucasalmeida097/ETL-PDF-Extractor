@@ -8,9 +8,12 @@ from configs.tools.postgres import RDSPostgreSQLManager
 
 logging.basicConfig(level=logging.INFO)
 
+
 class PDFTableExtractor:
     def __init__(self, file_name, configs):
-        self.path = os.path.abspath(f"src/files/pdf/{configs['name'].lower()}/{file_name}.pdf")
+        self.path = os.path.abspath(
+            f"src/files/pdf/{configs['name'].lower()}/{file_name}.pdf"
+        )
         self.csv_path = os.path.abspath("src/files/csv/")
         self.file_name = file_name
         self.configs = configs
@@ -18,9 +21,19 @@ class PDFTableExtractor:
     def start(self):
         logging.info(f"Start PDF - {self.file_name}")
 
-        header = self.get_table_data(self.configs["header_table_areas"], self.configs["header_columns"], self.configs["header_fix"])
-        main = self.get_table_data(self.configs["table_areas"], self.configs["columns"], self.configs["fix"])
-        small = self.get_table_data(self.configs["small_table_areas"], self.configs["small_columns"], self.configs["small_fix"])
+        header = self.get_table_data(
+            self.configs["header_table_areas"],
+            self.configs["header_columns"],
+            self.configs["header_fix"],
+        )
+        main = self.get_table_data(
+            self.configs["table_areas"], self.configs["columns"], self.configs["fix"]
+        )
+        small = self.get_table_data(
+            self.configs["small_table_areas"],
+            self.configs["small_columns"],
+            self.configs["small_fix"],
+        )
 
         main = self.add_infos(header, main)
         small = self.add_infos(header, small)
@@ -50,8 +63,14 @@ class PDFTableExtractor:
             password=self.configs["password"],
         )
 
-        table_content = [self.fix_header(page.df) if fix else page.df for page in tables]
-        result = pd.concat(table_content, ignore_index=True) if len(table_content) > 1 else table_content[0]
+        table_content = [
+            self.fix_header(page.df) if fix else page.df for page in tables
+        ]
+        result = (
+            pd.concat(table_content, ignore_index=True)
+            if len(table_content) > 1
+            else table_content[0]
+        )
         return result
 
     def save_csv(self, df, file_name):
@@ -63,8 +82,10 @@ class PDFTableExtractor:
     def add_infos(self, header, content):
         infos = header.iloc[0]
         df = pd.DataFrame([infos.values] * len(content), columns=header.columns)
-        content = pd.concat([content.reset_index(drop=True), df.reset_index(drop=True)], axis=1)
-        content["insertion_date"] = pd.Timestamp('today').normalize()
+        content = pd.concat(
+            [content.reset_index(drop=True), df.reset_index(drop=True)], axis=1
+        )
+        content["insertion_date"] = pd.Timestamp("today").normalize()
         return content
 
     @staticmethod
@@ -76,8 +97,8 @@ class PDFTableExtractor:
 
     def sanitize_column_names(self, df):
         df.columns = df.columns.map(lambda x: unidecode(str(x)))
-        df.columns = df.columns.str.replace(' ', '_')
-        df.columns = df.columns.str.replace(r'\W', '', regex=True)
+        df.columns = df.columns.str.replace(" ", "_")
+        df.columns = df.columns.str.replace(r"\W", "", regex=True)
         df.columns = df.columns.str.lower()
         return df
 
@@ -90,9 +111,14 @@ class PDFTableExtractor:
         except Exception as e:
             logging.error(e)
 
+
 def list_files(folder):
     try:
-        files = [os.path.splitext(f)[0] for f in os.listdir(folder) if os.path.isfile(os.path.join(folder, f))]
+        files = [
+            os.path.splitext(f)[0]
+            for f in os.listdir(folder)
+            if os.path.isfile(os.path.join(folder, f))
+        ]
         return files
     except FileNotFoundError:
         logging.info(f"The folder '{folder}' was not found.")
@@ -101,12 +127,13 @@ def list_files(folder):
         logging.info(f"An error occurred: {e}")
         return []
 
+
 if __name__ == "__main__":
-    broker = 'jornada'
+    broker = "redrex"
     path = os.path.abspath(f"src/files/pdf/{broker}/")
     files = list_files(path)
 
     for file in files:
         extractor = PDFTableExtractor(file, configs=rules_dict[broker]).start()
-    
+
     logging.info("All files have been successfully processed.")

@@ -9,12 +9,11 @@ env_path = Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(dotenv_path=env_path)
 logging.basicConfig(level=logging.INFO)
 
+
 class RDSPostgreSQLManager:
     def __init__(
-        self, db_name=None, db_user=None, db_password=None, db_host=None, 
-        db_port="5432"
+        self, db_name=None, db_user=None, db_password=None, db_host=None, db_port="5432"
     ):
-
         if (
             not self.check_environment_variables
             and db_name is None
@@ -57,8 +56,10 @@ class RDSPostgreSQLManager:
                 connection.close()
                 return result
             else:
-                logging.warning("Unable to establish connection to the\
-                                 database.")
+                logging.warning(
+                    "Unable to establish connection to the\
+                                 database."
+                )
                 return None
         except psycopg2.Error as e:
             logging.error(f"Error executing SQL query: {e}")
@@ -75,8 +76,10 @@ class RDSPostgreSQLManager:
                 connection.close()
                 logging.info("Data successfully inserted into the database.")
             else:
-                logging.warning("Unable to establish connection to the\
-                                 database.")
+                logging.warning(
+                    "Unable to establish connection to the\
+                                 database."
+                )
         except psycopg2.Error as e:
             logging.error(f"Error executing SQL insert: {e}")
 
@@ -88,12 +91,16 @@ class RDSPostgreSQLManager:
             or not os.getenv("DB_PASSWORD")
             or not os.getenv("DB_HOST")
         ):
-            logging.warning("The database environment variables are not \
-                            configured.")
+            logging.warning(
+                "The database environment variables are not \
+                            configured."
+            )
             return False
         else:
-            logging.info("Environment variables for the Bank have been \
-                         configured correctly.")
+            logging.info(
+                "Environment variables for the Bank have been \
+                         configured correctly."
+            )
             return True
 
     def alchemy(self):
@@ -101,5 +108,5 @@ class RDSPostgreSQLManager:
             f"postgresql://{self.db_user}:{self.db_password}@"
             f"{self.db_host}:{self.db_port}/{self.db_name}"
         )
-        
+
         return self.engine
