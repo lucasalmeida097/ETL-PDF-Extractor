@@ -90,16 +90,25 @@ dbt run
 poetry run streamlit run dashboard/app.py
 ```
 
+## 📘 View DBT Documentation
+After building your dbt models, you can generate and access a visual documentation of your data models with:
+
+```bash
+dbt docs generate
+dbt docs serve
+```
+This will open a browser window where you can explore your data warehouse structure, sources, models, and lineage graph
+
 ## 📊 Dashboard Features
-- Filters by commodity and date
+- **Filters by commodity and date**
 
-- KPIs: total quantity traded, total financial volume
+- **KPIs:** total quantity traded, total financial volume
 
-- Charts: quantity per commodity, value over time
+- **Charts:** quantity per commodity, value over time
 
-- Responsive layout with tabs for graphs and raw data
+- **Responsive layout** with tabs for graphs and raw data
 
-##📌 Requirements
+## 📌 Requirements
 - Python 3.10+
 
 - Poetry
