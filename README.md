@@ -1,84 +1,110 @@
-# 📊 ETL Pipeline for Brokerage Notes with PDF Extraction, dbt-core & Streamlit Dashboard
+# 📈 Financial Data ETL and Dashboard using Python, DBT, and Streamlit
 
-This project is a complete **ETL (Extract, Transform, Load)** pipeline built in **Python**, designed to process and analyze **brokerage notes** in PDF format.
+This project is a robust **ETL pipeline** and **interactive financial dashboard** built entirely in **Python**. Its main objective is to **extract and structure financial data from PDF brokerage notes** (Notas de Corretagem), load it into a **PostgreSQL database**, model it using **dbt-core**, and visualize the results through an elegant, interactive **Streamlit dashboard**.
 
-It enables automated extraction, transformation, and visualization of financial trading data using the following tools:
+It aims to automate and simplify the process of **tracking trades and operations in the Brazilian stock market**, providing KPIs and dynamic visualizations for informed decision-making.
 
-## 🔧 Technologies Used
+---
 
-- **Python 3.12** – The core programming language for all ETL and analytics logic.
-- **[Camelot](https://camelot-py.readthedocs.io/)** – Extracts tabular data from brokerage PDFs.
-- **PostgreSQL** – Relational database to store the extracted structured data.
-- **[dbt-core](https://docs.getdbt.com/)** – For transforming and modeling raw extracted data following analytics engineering best practices.
-- **[Streamlit](https://streamlit.io/)** – Creates an interactive and user-friendly dashboard to explore key financial metrics.
+## ⚙️ Technologies Used
+
+- **Python** 🐍 – Core programming language for the entire project
+- **Camelot** 📄 – PDF extraction tool to read and parse tabular data from brokerage notes
+- **PostgreSQL** 🐘 – Relational database to store structured data
+- **dbt-core** 🧪 – Data modeling and transformation framework using SQL
+- **Streamlit** 📊 – For building the interactive dashboard
+- **SQLAlchemy** – Database connection via Python ORM
+
+---
+
+## 🧠 Project Overview
+
+1. **Extract:** Use **Camelot** to extract structured tabular data from PDF brokerage notes.
+2. **Transform:** Clean and prepare the data using Python scripts, then apply advanced data modeling logic with **dbt-core**.
+3. **Load:** Store the final cleaned and modeled data in a **PostgreSQL** database.
+4. **Visualize:** Explore the data with a responsive **Streamlit dashboard**, including filters, KPIs, and time-based charts.
 
 ---
 
 ## 📂 Project Structure
-ETL-PDF-Extractor/ ├── dashboard/ # Streamlit app │ └── app.py ├── dbt/ # dbt-core models │ ├── models/ │ ├── dbt_project.yml ├── etl/ # ETL scripts (PDF parsing and loading to DB) │ ├── extractor.py │ ├── loader.py ├── .env # Environment variables (not committed) ├── poetry.lock ├── pyproject.toml └── README.md
 
-
----
+```text
+ETL-PDF-Extractor/
+│
+├── data/                      # Raw PDFs and exported CSVs
+│
+├── dashboard/                 # Streamlit app
+│   └── app.py                 # Main dashboard script
+│
+├── dbt/                       # dbt-core project
+│   ├── models/                # dbt models (SQL transformations)
+│   └── dbt_project.yml        # dbt project config
+│
+├── etl/                       # ETL scripts
+│   └── extract.py             # Camelot extraction logic
+│
+├── .env                       # Environment variables
+├── pyproject.toml             # Poetry config and dependencies
+├── README.md                  # Documentation
+└── Makefile                   # Automation tasks
+```
 
 ## 🚀 Getting Started
-
-### 1. Clone the repository
-
+1. Clone the repository
 ```bash
-git clone https://github.com/seu-usuario/ETL-PDF-Extractor.git
+git clone https://github.com/your-user/ETL-PDF-Extractor.git
 cd ETL-PDF-Extractor
 ```
 
-2. Install dependencies with Poetry
+2. Install dependencies
 Make sure you have Poetry installed:
+
 ```bash
 poetry install
 ```
 
-
-3. Configure your environment
-Create a .env file at the root with your PostgreSQL connection info:
+3. Configure environment variables
+Create a .env file in the root directory with the following:
 ```bash
 DB_HOST=localhost
-DB_NAME=etl_pdf
 DB_USER=your_user
 DB_PASSWORD=your_password
+DB_NAME=your_database
 ```
-Note: While the dashboard no longer uses dotenv, this file is used by other scripts in the ETL.
 
-## 🛠️ Running the ETL Pipeline
-Place your brokerage note PDFs in a designated folder (e.g., file/pdf/jornada or redrex)
+4. Run the ETL pipeline
+Extract data from your PDFs:
 
-Run the extractor to parse and load the raw data into PostgreSQL:
 ```bash
 poetry run python src/start.py
 ```
 
-Run dbt to transform raw data:
+5. Run dbt transformations
 ```bash
-cd dbt_models/
+cd dbt/
 dbt run
 ```
-## 📊 Running the Dashboard
-Once your data is extracted and transformed, launch the dashboard:
+
+6. Launch the dashboard with Streamlit
 ```bash
-streamlit run dashboard/app.py
+poetry run streamlit run dashboard/app.py
 ```
-You’ll be able to:
 
-- Filter by asset (mercadoria) and date
+## 📊 Dashboard Features
+- Filters by commodity and date
 
-- See KPIs like total movimentation and quantity
+- KPIs: total quantity traded, total financial volume
 
-- Visualize trends over time
+- Charts: quantity per commodity, value over time
 
-- View the filtered raw data in a clean table
+- Responsive layout with tabs for graphs and raw data
 
-## 📌 Why dbt?
-We chose dbt-core to implement the "T" in ETL — making data transformations modular, version-controlled, and testable. It allows clear lineage tracking and is great for team collaboration.
+##📌 Requirements
+- Python 3.10+
 
+- Poetry
 
+- PostgreSQL
 
-
-
+- System dependencies for Camelot (e.g., ghostscript, tk)
 
