@@ -1,4 +1,4 @@
-# 📈 Financial Data ETL and Dashboard using Python, DBT, and Streamlit
+# 📈 PDF Data Extraction Pipeline
 
 This project is a robust **ETL pipeline** and **interactive financial dashboard** built entirely in **Python**. Its main objective is to **extract and structure financial data from PDF brokerage notes** (Notas de Corretagem), load it into a **PostgreSQL database**, model it using **dbt-core**, and visualize the results through an elegant, interactive **Streamlit dashboard**.
 
