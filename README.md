@@ -108,6 +108,14 @@ This will open a browser window where you can explore your data warehouse struct
 
 - **Responsive layout** with tabs for graphs and raw data
 
+## 🖼️ Dashboard Preview
+<p align="center">
+  <img src="assets/dashboard-img-1.png" alt="Dashboard Screenshot 1" width="700"/>
+  <br/><br/>
+  <img src="assets/dashboard-img-2.png" alt="Dashboard Screenshot 2" width="700"/>
+</p>
+
+
 ## 📌 Requirements
 - Python 3.10+
 
