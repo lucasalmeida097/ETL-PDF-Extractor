@@ -50,7 +50,9 @@ ETL-PDF-Extractor/
 ```
 
 ## 🚀 Getting Started
+
 1. Clone the repository
+   
 ```bash
 git clone https://github.com/your-user/ETL-PDF-Extractor.git
 cd ETL-PDF-Extractor
@@ -65,6 +67,7 @@ poetry install
 
 3. Configure environment variables
 Create a .env file in the root directory with the following:
+
 ```bash
 DB_HOST=localhost
 DB_USER=your_user
@@ -80,17 +83,20 @@ poetry run python src/start.py
 ```
 
 5. Run dbt transformations
+   
 ```bash
 cd dbt/
 dbt run
 ```
 
 6. Launch the dashboard with Streamlit
+   
 ```bash
 poetry run streamlit run dashboard/app.py
 ```
 
 ## 📘 View DBT Documentation
+
 After building your dbt models, you can generate and access a visual documentation of your data models with:
 
 ```bash
@@ -100,6 +106,7 @@ dbt docs serve
 This will open a browser window where you can explore your data warehouse structure, sources, models, and lineage graph
 
 ## 📊 Dashboard Features
+
 - **Filters by commodity and date**
 
 - **KPIs:** total quantity traded, total financial volume
@@ -109,6 +116,7 @@ This will open a browser window where you can explore your data warehouse struct
 - **Responsive layout** with tabs for graphs and raw data
 
 ## 🖼️ Dashboard Preview
+
 <p align="center">
   <img src="assets/dashboard-img-1.png" alt="Dashboard Screenshot 1" width="700"/>
   <br/><br/>
@@ -117,6 +125,7 @@ This will open a browser window where you can explore your data warehouse struct
 
 
 ## 📌 Requirements
+
 - Python 3.10+
 
 - Poetry
